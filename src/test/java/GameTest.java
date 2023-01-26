@@ -19,4 +19,14 @@ public class GameTest {
 
         assertThat(game.score()).isEqualTo(0);
     }
+
+    @Test
+    void when_1_pin_is_knocked_down_in_the_first_frame_the_score_is_1() {
+        Game game = new Game();
+
+        game.roll(1);
+        game.roll(0);
+
+        assertThat(game.score()).isEqualTo(1);
+    }
 }
