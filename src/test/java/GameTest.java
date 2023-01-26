@@ -35,4 +35,15 @@ public class GameTest {
 
         assertThat(game.score()).isEqualTo(11);
     }
+
+    @Test
+    void when_a_spare_occurs_the_first_roll_of_the_next_frame_is_added_as_a_bonus_of_the_first_frame_score() {
+        game.roll(3);
+        game.roll(7); // frame1: 10 + 1
+        game.roll(1);
+        game.roll(2); // frame2: 3
+
+        assertThat(game.score()).isEqualTo(14);
+    }
+
 }
