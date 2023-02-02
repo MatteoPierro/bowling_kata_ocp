@@ -6,7 +6,11 @@ public class Game {
     private List<Integer> rolls = new ArrayList<>();
 
     public int score() {
-        return rolls.stream().mapToInt(Integer::intValue).sum();
+        int score = 0;
+        for (int i = 0; i < rolls.size(); i++) {
+            score += rolls.get(i);
+        }
+        return score;
     }
 
     public void roll(int knockedDownPins) {
