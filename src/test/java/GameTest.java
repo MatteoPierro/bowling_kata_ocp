@@ -47,4 +47,12 @@ public class GameTest {
         assertThat(game.score()).isEqualTo(10 + 1 + 3);
     }
 
+    @Test
+    void strike() {
+        game.roll(10);
+        game.roll(5);
+        game.roll(4);
+
+        assertThat(game.score()).isEqualTo(10 + 5 + 4 + 9);
+    }
 }
