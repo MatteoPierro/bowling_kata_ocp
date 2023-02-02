@@ -1,12 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 
-    private int score = 0;
+    private List<Integer> rolls = new ArrayList<>();
 
     public int score() {
-        return score;
+        return rolls.stream().mapToInt(Integer::intValue).sum();
     }
 
     public void roll(int knockedDownPins) {
-        score += knockedDownPins;
+        rolls.add(knockedDownPins);
     }
 }
