@@ -7,8 +7,12 @@ public class Game {
 
     public int score() {
         int score = 0;
-        for (int i = 0; i < rolls.size(); i++) {
-            score += rolls.get(i);
+        for (int rollIndex = 0; rollIndex < rolls.size();) {
+            score += rolls.get(rollIndex);
+            if (rollIndex + 1 < rolls.size()) {
+                score += rolls.get(rollIndex + 1);
+            }
+            rollIndex += 2;
         }
         return score;
     }
