@@ -8,14 +8,25 @@ public class Game {
     public int score() {
         int score = 0;
         for (int rollIndex = 0; rollIndex < rolls.size();) {
-            score += frameScore(rollIndex);
+            Integer frameScore = frameScore(rollIndex);
+            if (frameScore == 10) {
+                frameScore += rollScore(rollIndex + 2);
+            }
+            score += frameScore;
             rollIndex += 2;
         }
         return score;
     }
 
     private Integer frameScore(int rollIndex) {
+        if (isFrameOpen(rollIndex)) {
+            return 0;
+        }
         return rollScore(rollIndex) + rollScore(rollIndex + 1);
+    }
+
+    private boolean isFrameOpen(int rollIndex) {
+        return rollIndex + 1 >= rolls.size();
     }
 
     private Integer rollScore(int rollIndex) {
