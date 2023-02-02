@@ -15,11 +15,14 @@ public class Game {
     }
 
     private Integer frameScore(int rollIndex) {
-        Integer frameScore = rolls.get(rollIndex);
-        if (rollIndex + 1 < rolls.size()) {
-            frameScore += rolls.get(rollIndex + 1);
+        return rollScore(rollIndex) + rollScore(rollIndex + 1);
+    }
+
+    private Integer rollScore(int rollIndex) {
+        if (rollIndex >= rolls.size()) {
+            return 0;
         }
-        return frameScore;
+        return rolls.get(rollIndex);
     }
 
     public void roll(int knockedDownPins) {
