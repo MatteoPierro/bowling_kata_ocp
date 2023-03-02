@@ -7,9 +7,14 @@ public class Game {
 
     public int score() {
         int score = 0;
-        for (int rollIndex = 0; rollIndex < rolls.size();) {
-            score += frameScore(rollIndex);
-            rollIndex += 2;
+        for (int rollIndex = 0; rollIndex < rolls.size(); ) {
+            if (rollScore(rollIndex) == 10) {
+                score += 10 + 9;
+                rollIndex += 1;
+            } else {
+                score += frameScore(rollIndex);
+                rollIndex += 2;
+            }
         }
         return score;
     }

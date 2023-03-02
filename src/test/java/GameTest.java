@@ -49,10 +49,10 @@ public class GameTest {
 
     @Test
     void strike() {
-        game.roll(10);
-        game.roll(5);
+        game.roll(10); // frame1: strike
+        game.roll(5);  // frame2
         game.roll(4);
 
-        assertThat(game.score()).isEqualTo(10 + 5 + 4 + 9);
+        assertThat(game.score()).isEqualTo(10 + (5 + 4) + 9);
     }
 }
