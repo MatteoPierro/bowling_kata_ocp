@@ -6,62 +6,62 @@ public class Game {
     private static final int STRIKE_SCORE = 10;
     private static final int PINS_IN_A_FRAME = 10;
 
-    private List<Integer> rolls = new ArrayList<>();
+    private final List<Integer> rolls = new ArrayList<>();
 
     public int score() {
         int score = 0;
-        for (int rollIndex = 0; rollIndex < rolls.size(); ) {
-            if (isStrike(rollIndex)) {
-                score += STRIKE_SCORE + strikeBonus(rollIndex);
-                rollIndex += 1;
+        for (int roll = 0; roll < rolls.size(); ) {
+            if (isStrike(roll)) {
+                score += STRIKE_SCORE + strikeBonus(roll);
+                roll += 1;
             } else {
-                score += frameScore(rollIndex);
-                rollIndex += 2;
+                score += frameScore(roll);
+                roll += 2;
             }
         }
         return score;
     }
 
-    private int strikeBonus(int rollIndex) {
-        return knockedDownPins(rollIndex + 1) + knockedDownPins(rollIndex + 2);
+    private int strikeBonus(int roll) {
+        return knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
     }
 
-    private Integer frameScore(int rollIndex) {
-        Integer frameScore = baseFrameScore(rollIndex);
-        if (isSpare(rollIndex)) {
-            frameScore += spareBonus(rollIndex);
+    private Integer frameScore(int roll) {
+        Integer frameScore = baseFrameScore(roll);
+        if (isSpare(roll)) {
+            frameScore += spareBonus(roll);
         }
         return frameScore;
     }
 
-    private Integer spareBonus(int rollIndex) {
-        return knockedDownPins(rollIndex + 2);
+    private Integer spareBonus(int roll) {
+        return knockedDownPinsIn(roll + 2);
     }
 
-    private boolean isStrike(Integer rollIndex) {
-        return knockedDownPins(rollIndex) == PINS_IN_A_FRAME;
+    private boolean isStrike(Integer roll) {
+        return knockedDownPinsIn(roll) == PINS_IN_A_FRAME;
     }
 
-    private boolean isSpare(Integer rollIndex) {
-        return knockedDownPins(rollIndex) + knockedDownPins(rollIndex + 1) == PINS_IN_A_FRAME;
+    private boolean isSpare(Integer roll) {
+        return knockedDownPinsIn(roll) + knockedDownPinsIn(roll + 1) == PINS_IN_A_FRAME;
     }
 
-    private Integer baseFrameScore(int rollIndex) {
-        if (isFrameOpen(rollIndex)) {
+    private Integer baseFrameScore(int roll) {
+        if (isFrameOpen(roll)) {
             return 0;
         }
-        return knockedDownPins(rollIndex) + knockedDownPins(rollIndex + 1);
+        return knockedDownPinsIn(roll) + knockedDownPinsIn(roll + 1);
     }
 
     private boolean isFrameOpen(int rollIndex) {
         return rollIndex + 1 >= rolls.size();
     }
 
-    private Integer knockedDownPins(int rollIndex) {
-        if (rollIndex >= rolls.size()) {
+    private Integer knockedDownPinsIn(int roll) {
+        if (roll >= rolls.size()) {
             return 0;
         }
-        return rolls.get(rollIndex);
+        return rolls.get(roll);
     }
 
     public void roll(int knockedDownPins) {
