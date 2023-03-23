@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.NotImplementedException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Game {
     private static final int PINS_IN_A_FRAME = 10;
 
     private final List<Integer> rolls = new ArrayList<>();
+    private final Frames frames = new Frames();
 
     public int score() {
         int score = 0;
@@ -65,6 +68,18 @@ public class Game {
     }
 
     public void roll(int knockedDownPins) {
+        frames.current().roll(knockedDownPins);
         rolls.add(knockedDownPins);
+    }
+
+    private class Frames {
+        public Frame current() {
+            throw new NotImplementedException();
+        }
+
+        private class Frame {
+            public void roll(int knockedDownPins) {
+            }
+        }
     }
 }
