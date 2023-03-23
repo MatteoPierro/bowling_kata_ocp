@@ -12,7 +12,7 @@ public class Game {
         int score = 0;
         for (int rollIndex = 0; rollIndex < rolls.size(); ) {
             if (isStrike(rollIndex)) {
-                score += STRIKE_SCORE + 9;
+                score += STRIKE_SCORE + strikeBonus(rollIndex);
                 rollIndex += 1;
             } else {
                 score += frameScore(rollIndex);
@@ -20,6 +20,10 @@ public class Game {
             }
         }
         return score;
+    }
+
+    private int strikeBonus(int rollIndex) {
+        return knockedDownPins(rollIndex + 1) + knockedDownPins(rollIndex + 2);
     }
 
     private Integer frameScore(int rollIndex) {
