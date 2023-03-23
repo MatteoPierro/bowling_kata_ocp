@@ -48,7 +48,7 @@ public class GameTest {
     }
 
     @Test
-    void strike() {
+    void when_a_strike_occurs_the_next_two_rolls_are_added_as_a_bonus() {
         game.roll(10); // frame1: strike
         game.roll(5);  // frame2
         game.roll(4);
