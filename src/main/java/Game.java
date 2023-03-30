@@ -71,6 +71,14 @@ public class Game {
     public void roll(int knockedDownPins) {
         frames.current().roll(knockedDownPins);
         rolls.add(knockedDownPins);
+
+        assertKnockedPins();
+    }
+
+    private void assertKnockedPins() {
+        int knockedPinsSample = frames.frames.stream().mapToInt(f -> f.rolls.stream().mapToInt(Integer::intValue).sum()).sum();
+        int knockedPinsControl = rolls.stream().mapToInt(Integer::intValue).sum();
+        assert knockedPinsSample == knockedPinsControl : "expected " + knockedPinsSample + " to be equal to " + knockedPinsControl;
     }
 
     private class Frames {
