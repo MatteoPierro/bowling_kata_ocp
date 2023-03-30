@@ -1,5 +1,3 @@
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,14 +12,16 @@ public class Game {
 
     public int score() {
         int score = 0;
+        int frameNumber = 0;
         for (int roll = 0; roll < rolls.size(); ) {
             if (isStrike(roll)) {
                 score += STRIKE_SCORE + strikeBonus(roll);
                 roll += 1;
             } else {
-                score += frameScore(roll);
+                score += frameScore(roll, frameNumber);
                 roll += 2;
             }
+            frameNumber++;
         }
         return score;
     }
@@ -30,11 +30,16 @@ public class Game {
         return knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
     }
 
-    private Integer frameScore(int roll) {
-        Integer frameScore = baseFrameScore(roll);
+    private Integer frameScore(int roll, int frameNumber) {
+        int frameScore = baseFrameScore(roll);
+
+        int scoreVariant = frames.frames.get(frameNumber).score();
+        assert frameScore == scoreVariant : "expected " + frameScore + " to be equal to " + scoreVariant + " for frame " + (frameNumber + 1);
+
         if (isSpare(roll)) {
             frameScore += spareBonus(roll);
         }
+
         return frameScore;
     }
 
@@ -89,6 +94,12 @@ public class Game {
         }
 
         public Frame current() {
+            Frame last = frames.getLast();
+
+            if (last.isCompleted()) {
+                frames.add(new Frame());
+            }
+
             return frames.getLast();
         }
 
@@ -97,6 +108,22 @@ public class Game {
 
             public void roll(int knockedDownPins) {
                 this.rolls.add(knockedDownPins);
+            }
+
+            public int score() {
+                if (!isCompleted()) {
+                    return 0;
+                }
+
+                return rolls.stream().mapToInt(Integer::intValue).sum();
+            }
+
+            public boolean isCompleted() {
+                if (rolls.isEmpty()) {
+                    return false;
+                }
+
+                return rolls.get(0) == 10 || rolls.size() == 2;
             }
         }
     }
