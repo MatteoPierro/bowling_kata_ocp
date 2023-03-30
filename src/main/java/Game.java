@@ -1,6 +1,7 @@
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
@@ -73,12 +74,21 @@ public class Game {
     }
 
     private class Frames {
+        private final LinkedList<Frame> frames = new LinkedList<>();
+
+        public Frames() {
+            frames.add(new Frame());
+        }
+
         public Frame current() {
-            throw new NotImplementedException();
+            return frames.getLast();
         }
 
         private class Frame {
+            private final List<Integer> rolls = new ArrayList<>();
+
             public void roll(int knockedDownPins) {
+                this.rolls.add(knockedDownPins);
             }
         }
     }
