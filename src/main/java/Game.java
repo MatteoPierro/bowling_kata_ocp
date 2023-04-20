@@ -31,9 +31,7 @@ public class Game {
     }
 
     private Integer frameScore(int roll, int frameNumber) {
-        int frameScore = baseFrameScore(roll);
-
-        assertScore(frameNumber, frameScore);
+        int frameScore = frames.get(frameNumber).score();
 
         if (isSpare(roll)) {
             frameScore += spareBonus(roll);
@@ -54,17 +52,6 @@ public class Game {
         return knockedDownPinsIn(roll) + knockedDownPinsIn(roll + 1) == PINS_IN_A_FRAME;
     }
 
-    private Integer baseFrameScore(int roll) {
-        if (isFrameOpen(roll)) {
-            return 0;
-        }
-        return knockedDownPinsIn(roll) + knockedDownPinsIn(roll + 1);
-    }
-
-    private boolean isFrameOpen(int rollIndex) {
-        return rollIndex + 1 >= rolls.size();
-    }
-
     private Integer knockedDownPinsIn(int roll) {
         if (roll >= rolls.size()) {
             return 0;
@@ -83,11 +70,6 @@ public class Game {
         int knockedPinsSample = frames.allKnockedPins();
         int knockedPinsControl = rolls.stream().mapToInt(Integer::intValue).sum();
         assert knockedPinsSample == knockedPinsControl : "expected " + knockedPinsSample + " to be equal to " + knockedPinsControl;
-    }
-
-    private void assertScore(int frameNumber, int frameScore) {
-        int scoreVariant = frames.get(frameNumber).score();
-        assert frameScore == scoreVariant : "expected " + frameScore + " to be equal to " + scoreVariant + " for frame " + (frameNumber + 1);
     }
 
     private class Frames {
