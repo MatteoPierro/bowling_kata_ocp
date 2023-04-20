@@ -86,7 +86,7 @@ public class Game {
     }
 
     private void assertScore(int frameNumber, int frameScore) {
-        int scoreVariant = frames.frames.get(frameNumber).score();
+        int scoreVariant = frames.get(frameNumber).score();
         assert frameScore == scoreVariant : "expected " + frameScore + " to be equal to " + scoreVariant + " for frame " + (frameNumber + 1);
     }
 
@@ -105,6 +105,10 @@ public class Game {
             }
 
             return frames.getLast();
+        }
+
+        private Frame get(int frameNumber) {
+            return this.frames.get(frameNumber);
         }
 
         private class Frame {
