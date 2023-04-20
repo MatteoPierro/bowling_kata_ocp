@@ -31,7 +31,8 @@ public class Game {
     }
 
     private Integer frameScore(int roll, int frameNumber) {
-        int frameScore = frames.get(frameNumber).score();
+        Frames.Frame frame = frames.get(frameNumber);
+        int frameScore = frame.score();
 
         if (isSpare(roll)) {
             frameScore += spareBonus(roll);
