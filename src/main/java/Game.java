@@ -34,7 +34,7 @@ public class Game {
         Frame frame = frames.get(frameNumber);
         int frameScore = frame.score();
 
-        if (isSpare(roll)) {
+        if (isSpare(roll, frame)) {
             frameScore += spareBonus(roll);
         }
 
@@ -49,8 +49,11 @@ public class Game {
         return knockedDownPinsIn(roll) == PINS_IN_A_FRAME;
     }
 
-    private boolean isSpare(Integer roll) {
-        return knockedDownPinsIn(roll) + knockedDownPinsIn(roll + 1) == PINS_IN_A_FRAME;
+    private boolean isSpare(Integer roll, Frame frame) {
+        int control = knockedDownPinsIn(roll) + knockedDownPinsIn(roll + 1);
+        int variant = frame.knockedPins();
+        assert control == variant : "expect " + control + " to be equal to " + variant;
+        return control == PINS_IN_A_FRAME;
     }
 
     private Integer knockedDownPinsIn(int roll) {
