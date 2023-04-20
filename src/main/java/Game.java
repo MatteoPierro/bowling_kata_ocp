@@ -18,7 +18,7 @@ public class Game {
                 score += STRIKE_SCORE + strikeBonus(roll);
                 roll += 1;
             } else {
-                score += frameScore(roll, frameNumber);
+                score += frameScore(frameNumber);
                 roll += 2;
             }
             frameNumber++;
@@ -30,22 +30,19 @@ public class Game {
         return knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
     }
 
-    private Integer frameScore(int roll, int frameNumber) {
+    private Integer frameScore(int frameNumber) {
         Frame frame = frames.get(frameNumber);
         int frameScore = frame.score();
 
         if (frame.isSpare()) {
-            frameScore += spareBonus(roll, frameNumber);
+            frameScore += spareBonus(frameNumber);
         }
 
         return frameScore;
     }
 
-    private Integer spareBonus(int roll, int frameNumber) {
-        int variant = frames.get(frameNumber + 1).knockedPinsInFirstRoll();
-        Integer control = knockedDownPinsIn(roll + 2);
-        assert variant == control;
-        return control;
+    private Integer spareBonus(int frameNumber) {
+        return frames.get(frameNumber + 1).knockedPinsInFirstRoll();
     }
 
     private boolean isStrike(Integer roll) {
