@@ -95,7 +95,7 @@ public class Game {
         }
 
         private int allKnockedPins() {
-            return frames.stream().mapToInt(f -> f.rolls.stream().mapToInt(Integer::intValue).sum()).sum();
+            return frames.stream().mapToInt(f -> f.knockedPins()).sum();
         }
 
     }
@@ -121,6 +121,10 @@ public class Game {
             }
 
             return rolls.get(0) == 10 || rolls.size() == 2;
+        }
+
+        private int knockedPins() {
+            return rolls.stream().mapToInt(Integer::intValue).sum();
         }
     }
 }
