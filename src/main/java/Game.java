@@ -31,7 +31,7 @@ public class Game {
     }
 
     private Integer frameScore(int roll, int frameNumber) {
-        Frames.Frame frame = frames.get(frameNumber);
+        Frame frame = frames.get(frameNumber);
         int frameScore = frame.score();
 
         if (isSpare(roll)) {
@@ -98,28 +98,29 @@ public class Game {
             return frames.stream().mapToInt(f -> f.rolls.stream().mapToInt(Integer::intValue).sum()).sum();
         }
 
-        private class Frame {
-            private final List<Integer> rolls = new ArrayList<>();
+    }
 
-            public void roll(int knockedDownPins) {
-                this.rolls.add(knockedDownPins);
+    private class Frame {
+        private final List<Integer> rolls = new ArrayList<>();
+
+        public void roll(int knockedDownPins) {
+            this.rolls.add(knockedDownPins);
+        }
+
+        public int score() {
+            if (!isCompleted()) {
+                return 0;
             }
 
-            public int score() {
-                if (!isCompleted()) {
-                    return 0;
-                }
+            return rolls.stream().mapToInt(Integer::intValue).sum();
+        }
 
-                return rolls.stream().mapToInt(Integer::intValue).sum();
+        public boolean isCompleted() {
+            if (rolls.isEmpty()) {
+                return false;
             }
 
-            public boolean isCompleted() {
-                if (rolls.isEmpty()) {
-                    return false;
-                }
-
-                return rolls.get(0) == 10 || rolls.size() == 2;
-            }
+            return rolls.get(0) == 10 || rolls.size() == 2;
         }
     }
 }
