@@ -34,7 +34,7 @@ public class Game {
         Frame frame = frames.get(frameNumber);
         int frameScore = frame.score();
 
-        if (isSpare(frame)) {
+        if (frame.isSpare()) {
             frameScore += spareBonus(roll);
         }
 
@@ -47,10 +47,6 @@ public class Game {
 
     private boolean isStrike(Integer roll) {
         return knockedDownPinsIn(roll) == PINS_IN_A_FRAME;
-    }
-
-    private boolean isSpare(Frame frame) {
-        return frame.knockedPins() == PINS_IN_A_FRAME;
     }
 
     private Integer knockedDownPinsIn(int roll) {
@@ -125,6 +121,10 @@ public class Game {
 
         private int knockedPins() {
             return rolls.stream().mapToInt(Integer::intValue).sum();
+        }
+
+        private boolean isSpare() {
+            return knockedPins() == PINS_IN_A_FRAME;
         }
     }
 }
