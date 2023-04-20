@@ -126,5 +126,9 @@ public class Game {
         private boolean isSpare() {
             return knockedPins() == PINS_IN_A_FRAME;
         }
+
+        public int knockedPinsInFirstRoll() {
+            return rolls.get(0);
+        }
     }
 }
