@@ -91,7 +91,7 @@ public class Game {
         }
 
         private Frame get(int frameNumber) {
-            return this.frames.get(frameNumber);
+            return frames.get(frameNumber);
         }
 
         private int allKnockedPins() {
@@ -104,7 +104,7 @@ public class Game {
         private final List<Integer> rolls = new ArrayList<>();
 
         public void roll(int knockedDownPins) {
-            this.rolls.add(knockedDownPins);
+            rolls.add(knockedDownPins);
         }
 
         public int score() {
