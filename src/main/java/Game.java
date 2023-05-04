@@ -15,7 +15,7 @@ public class Game {
         for (int roll = 0; roll < rolls.size(); ) {
             Frame frame = frames.get(frameNumber);
             if (frame.isStrike()) {
-                score += STRIKE_SCORE + strikeBonus(roll);
+                score += STRIKE_SCORE + strikeBonus(roll, frameNumber);
                 roll += 1;
             } else if (frame.isSpare()) {
                 score += frame.score() + spareBonus(frameNumber);
@@ -34,8 +34,16 @@ public class Game {
         return nextFrame.knockedPinsInFirstRoll();
     }
 
-    private int strikeBonus(int roll) {
-        return knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
+    private int strikeBonus(int roll, int frameNumber) {
+        int control = knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
+        Frame nextFrame = frames.get(frameNumber + 1);
+        int variant = nextFrame.score();
+        if (nextFrame.isStrike()) {
+            nextFrame = frames.get(frameNumber + 2);
+            variant += nextFrame.knockedPinsInFirstRoll();
+        }
+        assert control == variant: "Expected " + variant + " to equal " + control;
+        return control;
     }
 
     private Integer knockedDownPinsIn(int roll) {
