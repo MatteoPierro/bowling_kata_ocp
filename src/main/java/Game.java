@@ -9,20 +9,15 @@ public class Game {
 
     public int score() {
         int score = 0;
-        int frameNumber = 0;
-        for (int roll = 0; roll < rolls.size(); ) {
+        for (int frameNumber = 0; frameNumber < frames.completedFrames(); frameNumber += 1) {
             Frame frame = frames.get(frameNumber);
             if (frame.isStrike()) {
                 score += frame.score() + strikeBonus(frameNumber);
-                roll += 1;
             } else if (frame.isSpare()) {
                 score += frame.score() + spareBonus(frameNumber);
-                roll += 2;
             } else {
                 score += frame.score();
-                roll += 2;
             }
-            frameNumber++;
         }
         return score;
     }
@@ -80,6 +75,9 @@ public class Game {
             return frames.stream().mapToInt(f -> f.knockedPins()).sum();
         }
 
+        public int completedFrames() {
+            return frames.size();
+        }
     }
 
     private class Frame {
@@ -115,6 +113,8 @@ public class Game {
         }
 
         public int knockedPinsInFirstRoll() {
+            if (rolls.isEmpty()) return 0;
+
             return rolls.get(0);
         }
 
