@@ -4,8 +4,6 @@ import java.util.List;
 
 public class Game {
 
-    private static final int STRIKE_SCORE = 10;
-
     private final List<Integer> rolls = new ArrayList<>();
     private final Frames frames = new Frames();
 
@@ -15,7 +13,7 @@ public class Game {
         for (int roll = 0; roll < rolls.size(); ) {
             Frame frame = frames.get(frameNumber);
             if (frame.isStrike()) {
-                score += STRIKE_SCORE + strikeBonus(roll, frameNumber);
+                score += frame.score() + strikeBonus(roll, frameNumber);
                 roll += 1;
             } else if (frame.isSpare()) {
                 score += frame.score() + spareBonus(frameNumber);
