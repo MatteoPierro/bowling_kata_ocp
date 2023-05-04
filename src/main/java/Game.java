@@ -5,7 +5,6 @@ import java.util.List;
 public class Game {
 
     private static final int STRIKE_SCORE = 10;
-    private static final int PINS_IN_A_FRAME = 10;
 
     private final List<Integer> rolls = new ArrayList<>();
     private final Frames frames = new Frames();
@@ -87,6 +86,7 @@ public class Game {
     }
 
     private class Frame {
+        private static final int PINS_IN_A_FRAME = 10;
         private final List<Integer> rolls = new ArrayList<>();
 
         public void roll(int knockedDownPins) {
