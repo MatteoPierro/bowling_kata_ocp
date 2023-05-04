@@ -49,9 +49,10 @@ public class GameTest {
     @Test
     void when_a_strike_occurs_the_next_two_rolls_are_added_as_a_bonus() {
         game.roll(10); // frame1: strike
-        game.roll(5);  // frame2
+        game.roll(10); // frame2: strike
+        game.roll(5);  // frame3
         game.roll(4);
 
-        assertThat(game.score()).isEqualTo(10 + (5 + 4) + 9);
+        assertThat(game.score()).isEqualTo(10 + (10 + 5) + 10 + (5 + 4) + 9);
     }
 }
