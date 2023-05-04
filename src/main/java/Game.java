@@ -14,11 +14,15 @@ public class Game {
         int score = 0;
         int frameNumber = 0;
         for (int roll = 0; roll < rolls.size(); ) {
+            Frame frame = frames.get(frameNumber);
             if (isStrike(roll)) {
                 score += STRIKE_SCORE + strikeBonus(roll);
                 roll += 1;
+            } else if (frame.isSpare()) {
+                score += frame.score() + spareBonus(frameNumber);
+                roll += 2;
             } else {
-                score += frameScore(frameNumber);
+                score += frame.score();
                 roll += 2;
             }
             frameNumber++;
@@ -26,20 +30,13 @@ public class Game {
         return score;
     }
 
-    private int strikeBonus(int roll) {
-        return knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
+    private int spareBonus(int frameNumber) {
+        Frame nextFrame = frames.get(frameNumber + 1);
+        return nextFrame.knockedPinsInFirstRoll();
     }
 
-    private Integer frameScore(int frameNumber) {
-        Frame frame = frames.get(frameNumber);
-        int frameScore = frame.score();
-
-        if (frame.isSpare()) {
-            Frame nextFrame = frames.get(frameNumber + 1);
-            frameScore += nextFrame.knockedPinsInFirstRoll();
-        }
-
-        return frameScore;
+    private int strikeBonus(int roll) {
+        return knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
     }
 
     private boolean isStrike(Integer roll) {
