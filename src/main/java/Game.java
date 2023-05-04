@@ -40,7 +40,10 @@ public class Game {
     }
 
     private boolean isStrike(Integer roll, Frame frame) {
-        return knockedDownPinsIn(roll) == PINS_IN_A_FRAME;
+        boolean control = knockedDownPinsIn(roll) == PINS_IN_A_FRAME;
+        boolean variant = frame.knockedPinsInFirstRoll() == PINS_IN_A_FRAME;
+        assert control == variant;
+        return control;
     }
 
     private Integer knockedDownPinsIn(int roll) {
