@@ -4,8 +4,11 @@ import java.util.List;
 
 public class Game {
 
-    private final List<Integer> rolls = new ArrayList<>();
     private final Frames frames = new Frames();
+
+    public void roll(int knockedDownPins) {
+        frames.current().roll(knockedDownPins);
+    }
 
     public int score() {
         int score = 0;
@@ -37,19 +40,6 @@ public class Game {
         return strikeBonus;
     }
 
-    public void roll(int knockedDownPins) {
-        frames.current().roll(knockedDownPins);
-        rolls.add(knockedDownPins);
-
-        assertKnockedPins();
-    }
-
-    private void assertKnockedPins() {
-        int knockedPinsSample = frames.allKnockedPins();
-        int knockedPinsControl = rolls.stream().mapToInt(Integer::intValue).sum();
-        assert knockedPinsSample == knockedPinsControl : "expected " + knockedPinsSample + " to be equal to " + knockedPinsControl;
-    }
-
     private class Frames {
         private final LinkedList<Frame> frames = new LinkedList<>();
 
@@ -69,10 +59,6 @@ public class Game {
 
         private Frame get(int frameNumber) {
             return frames.get(frameNumber);
-        }
-
-        private int allKnockedPins() {
-            return frames.stream().mapToInt(f -> f.knockedPins()).sum();
         }
 
         public int completedFrames() {
