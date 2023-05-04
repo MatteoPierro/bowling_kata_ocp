@@ -15,7 +15,7 @@ public class Game {
         int frameNumber = 0;
         for (int roll = 0; roll < rolls.size(); ) {
             Frame frame = frames.get(frameNumber);
-            if (isStrike(roll)) {
+            if (isStrike(roll, frame)) {
                 score += STRIKE_SCORE + strikeBonus(roll);
                 roll += 1;
             } else if (frame.isSpare()) {
@@ -39,7 +39,7 @@ public class Game {
         return knockedDownPinsIn(roll + 1) + knockedDownPinsIn(roll + 2);
     }
 
-    private boolean isStrike(Integer roll) {
+    private boolean isStrike(Integer roll, Frame frame) {
         return knockedDownPinsIn(roll) == PINS_IN_A_FRAME;
     }
 
