@@ -7,7 +7,11 @@ public class Game {
     private final Frames frames = new Frames();
 
     public void roll(int knockedDownPins) {
-        frames.roll(knockedDownPins);
+        frames.current().roll(knockedDownPins);
+
+        if (frames.current().isCompleted()) {
+            frames.moveToNextFrame();
+        }
     }
 
     public int score() {
@@ -53,14 +57,6 @@ public class Game {
 
         public int completedFrames() {
             return frames.size();
-        }
-
-        private void roll(int knockedDownPins) {
-            current().roll(knockedDownPins);
-
-            if (current().isCompleted()) {
-                moveToNextFrame();
-            }
         }
 
         private void moveToNextFrame() {
