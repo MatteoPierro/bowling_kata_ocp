@@ -4,27 +4,20 @@ import java.util.List;
 
 public class Game {
 
-    private final CompletedFrames completedFrames;
-    private Frame currentFrame;
-
-    public Game() {
-        completedFrames = new CompletedFrames();
-        currentFrame = completedFrames.current();
-    }
+    private final Frames frames = new Frames();
 
     public void roll(int knockedDownPins) {
-        currentFrame.roll(knockedDownPins);
+        frames.current().roll(knockedDownPins);
 
-        if (currentFrame.isCompleted()) {
-            completedFrames.moveToNextFrame();
-            currentFrame = completedFrames.current();
+        if (frames.current().isCompleted()) {
+            frames.moveToNextFrame();
         }
     }
 
     public int score() {
         int score = 0;
-        for (int frameNumber = 0; frameNumber < completedFrames.completedFrames(); frameNumber += 1) {
-            Frame frame = completedFrames.get(frameNumber);
+        for (int frameNumber = 0; frameNumber < frames.completedFrames(); frameNumber += 1) {
+            Frame frame = frames.get(frameNumber);
             if (frame.isStrike()) {
                 score += frame.score() + strikeBonus(frameNumber);
             } else if (frame.isSpare()) {
@@ -37,24 +30,24 @@ public class Game {
     }
 
     private int spareBonus(int frameNumber) {
-        Frame nextFrame = completedFrames.get(frameNumber + 1);
+        Frame nextFrame = frames.get(frameNumber + 1);
         return nextFrame.knockedPinsInFirstRoll();
     }
 
     private int strikeBonus(int frameNumber) {
-        Frame nextFrame = completedFrames.get(frameNumber + 1);
+        Frame nextFrame = frames.get(frameNumber + 1);
         int strikeBonus = nextFrame.score();
         if (nextFrame.isStrike()) {
-            nextFrame = completedFrames.get(frameNumber + 2);
+            nextFrame = frames.get(frameNumber + 2);
             strikeBonus += nextFrame.knockedPinsInFirstRoll();
         }
         return strikeBonus;
     }
 
-    private class CompletedFrames {
+    private class Frames {
         private final LinkedList<Frame> frames = new LinkedList<>();
 
-        public CompletedFrames() {
+        public Frames() {
             frames.add(new Frame());
         }
 
