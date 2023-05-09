@@ -90,12 +90,8 @@ public class Game {
             return rolls.get(0) == 10 || rolls.size() == 2;
         }
 
-        private int knockedPins() {
-            return rolls.stream().mapToInt(Integer::intValue).sum();
-        }
-
         private boolean isSpare() {
-            return knockedPins() == PINS_IN_A_FRAME;
+            return score() == PINS_IN_A_FRAME;
         }
 
         public int knockedPinsInFirstRoll() {
