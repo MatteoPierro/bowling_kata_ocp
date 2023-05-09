@@ -16,7 +16,7 @@ public class Game {
 
     public int score() {
         int score = 0;
-        for (int frameNumber = 0; frameNumber < frames.completedFrames(); frameNumber += 1) {
+        for (int frameNumber = 0; frameNumber < frames.count(); frameNumber += 1) {
             Frame frame = frames.get(frameNumber);
             if (frame.isStrike()) {
                 score += frame.score() + strikeBonus(frameNumber);
@@ -55,7 +55,7 @@ public class Game {
             return frames.get(frameNumber);
         }
 
-        public int completedFrames() {
+        public int count() {
             return frames.size();
         }
 
