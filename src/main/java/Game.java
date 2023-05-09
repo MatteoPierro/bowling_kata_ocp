@@ -56,13 +56,11 @@ public class Game {
         }
 
         private void roll(int knockedDownPins) {
-            Frame last = current();
+            current().roll(knockedDownPins);
 
-            if (last.isCompleted()) {
+            if (current().isCompleted()) {
                 frames.add(new Frame());
             }
-
-            current().roll(knockedDownPins);
         }
 
         private Frame current() {
