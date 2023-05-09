@@ -59,8 +59,12 @@ public class Game {
             current().roll(knockedDownPins);
 
             if (current().isCompleted()) {
-                frames.add(new Frame());
+                moveToNextFrame();
             }
+        }
+
+        private void moveToNextFrame() {
+            frames.add(new Frame());
         }
 
         private Frame current() {
