@@ -40,7 +40,7 @@ public class Game {
         }
         if (frameNumber == 8) {
             Frame nextFrame = frames.get(frameNumber + 1);
-            return nextFrame.rolls.get(0) + nextFrame.rolls.get(1);
+            return nextFrame.knockedPinsInTheFirstTwoRolls();
         }
         Frame nextFrame = frames.get(frameNumber + 1);
         int strikeBonus = nextFrame.score();
@@ -111,6 +111,10 @@ public class Game {
             if (rolls.isEmpty()) return 0;
 
             return rolls.get(0);
+        }
+
+        private int knockedPinsInTheFirstTwoRolls() {
+            return rolls.get(0) + rolls.get(1);
         }
 
         private boolean isStrike() {
