@@ -93,7 +93,7 @@ public class Game {
                 return false;
             }
 
-            return rolls.get(0) == 10 || rolls.size() >= 2;
+            return isStrike() || rolls.size() >= 2;
         }
 
         private boolean isSpare() {
