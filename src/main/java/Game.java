@@ -35,10 +35,10 @@ public class Game {
     }
 
     private int strikeBonus(int frameNumber) {
-        if (frameNumber == 9) {
+        if (isLastFrame(frameNumber)) {
             return 0;
         }
-        if (frameNumber == 8) {
+        if (isSecondToLastFrame(frameNumber)) {
             Frame nextFrame = frames.get(frameNumber + 1);
             return nextFrame.knockedPinsInTheFirstTwoRolls();
         }
@@ -49,6 +49,14 @@ public class Game {
             strikeBonus += nextFrame.knockedPinsInFirstRoll();
         }
         return strikeBonus;
+    }
+
+    private static boolean isSecondToLastFrame(int frameNumber) {
+        return frameNumber == 8;
+    }
+
+    private static boolean isLastFrame(int frameNumber) {
+        return frameNumber == 9;
     }
 
     private class Frames {
