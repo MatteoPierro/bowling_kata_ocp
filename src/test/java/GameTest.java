@@ -66,7 +66,7 @@ public class GameTest {
     }
 
     @Test
-    void xxx() {
+    void playing_a_realistic_full_game() {
         game.roll(10); // frame1: strike
         game.roll(9);  // frame2: spare
         game.roll(1);

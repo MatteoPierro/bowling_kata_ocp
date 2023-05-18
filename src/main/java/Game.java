@@ -60,6 +60,10 @@ public class Game {
         }
 
         private void moveToNextFrame() {
+            if (count() == 10) {
+                return;
+            }
+
             frames.add(new Frame());
         }
 
@@ -89,7 +93,7 @@ public class Game {
                 return false;
             }
 
-            return rolls.get(0) == 10 || rolls.size() == 2;
+            return rolls.get(0) == 10 || rolls.size() >= 2;
         }
 
         private boolean isSpare() {
