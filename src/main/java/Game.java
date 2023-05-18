@@ -35,6 +35,13 @@ public class Game {
     }
 
     private int strikeBonus(int frameNumber) {
+        if (frameNumber == 9) {
+            return 0;
+        }
+        if (frameNumber == 8) {
+            Frame nextFrame = frames.get(frameNumber + 1);
+            return nextFrame.rolls.get(0) + nextFrame.rolls.get(1);
+        }
         Frame nextFrame = frames.get(frameNumber + 1);
         int strikeBonus = nextFrame.score();
         if (nextFrame.isStrike()) {

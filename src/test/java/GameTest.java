@@ -87,4 +87,13 @@ public class GameTest {
 
         assertThat(game.score()).isEqualTo(187);
     }
+
+    @Test
+    void perfect_game() {
+        for (int i = 0; i < 12; i++) {
+            game.roll(10);
+        }
+
+        assertThat(game.score()).isEqualTo(300);
+    }
 }
