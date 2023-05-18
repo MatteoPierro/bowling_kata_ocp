@@ -30,6 +30,10 @@ public class Game {
     }
 
     private int spareBonus(int frameNumber) {
+        if (isLastFrame(frameNumber)) {
+            return 0;
+        }
+
         Frame nextFrame = frames.get(frameNumber + 1);
         return nextFrame.knockedPinsInFirstRoll();
     }
@@ -112,7 +116,7 @@ public class Game {
         }
 
         private boolean isSpare() {
-            return score() == PINS_IN_A_FRAME;
+            return knockedPinsInTheFirstTwoRolls() == PINS_IN_A_FRAME;
         }
 
         public int knockedPinsInFirstRoll() {
@@ -122,6 +126,9 @@ public class Game {
         }
 
         private int knockedPinsInTheFirstTwoRolls() {
+            if (rolls.size() < 2)
+                return 0;
+
             return rolls.get(0) + rolls.get(1);
         }
 
