@@ -64,4 +64,27 @@ public class GameTest {
 
         assertThat(game.score()).isEqualTo(20);
     }
+
+    @Test
+    void xxx() {
+        game.roll(10); // frame1: strike
+        game.roll(9);  // frame2: spare
+        game.roll(1);
+        game.roll(5);  // frame3: spare
+        game.roll(5);
+        game.roll(7);  // frame4
+        game.roll(2);
+        game.roll(10); // frame5: strike
+        game.roll(10); // frame6: strike
+        game.roll(10); // frame7: strike
+        game.roll(9);  // frame8
+        game.roll(0);
+        game.roll(8);  // frame9: spare
+        game.roll(2);
+        game.roll(9);  // frame10: spare
+        game.roll(1);
+        game.roll(10); // frame10: bonus additional shot
+
+        assertThat(game.score()).isEqualTo(187);
+    }
 }
